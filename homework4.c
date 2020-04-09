@@ -4,7 +4,7 @@
 int main(void)
 {
     char rChar;
-    char *response = "\n\n\r2534 is NOT the best course in the curriculum!\r\n\n";
+    char *response = "\n\n\r2534 is the best course in the curriculum!\r\n\n";
 
     // TODO: Declare the variables that main uses to interact with your state machine.
     bool successful = false;
@@ -57,8 +57,8 @@ int main(void)
         if(rChar != 0xFF){
             if(UART_getInterruptStatus(EUSCI_A0_BASE,EUSCI_A_UART_TRANSMIT_INTERRUPT_FLAG) == EUSCI_A_UART_TRANSMIT_INTERRUPT_FLAG)
             {
-                UART_transmitData(EUSCI_A0_BASE, rChar);
-                successful = charFSM(rChar);
+                UART_transmitData(EUSCI_A0_BASE, rChar);  //transmit data
+                successful = charFSM(rChar);       //fsm is updated
             }
 
         }
@@ -75,10 +75,10 @@ int main(void)
                 for(i = 0; response[i] != '\0'; i++)
                 {
 
-                    UART_transmitData(EUSCI_A0_BASE, response[i]);
+                    UART_transmitData(EUSCI_A0_BASE, response[i]);  //response is transmitted to terminal
 
                 }
-            successful = false;
+            successful = false;       //resets the successful variable
             }
         }
     }
